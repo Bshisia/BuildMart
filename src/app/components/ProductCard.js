@@ -18,7 +18,7 @@ export default function ProductCard({ product, onAddToCart }) {
   };
 
   return (
-    <div className="product-card bg-white rounded-lg border overflow-hidden transition duration-300">
+    <div className="product-card bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-700 overflow-hidden transition duration-300">
       <div className="relative">
         <img src={product.image} alt={product.alt} className="w-full h-48 object-cover" loading="lazy" />
         {product.discount && (
@@ -28,29 +28,29 @@ export default function ProductCard({ product, onAddToCart }) {
         )}
         <button 
           onClick={() => onAddToCart(product.id)}
-          className="absolute top-2 right-2 bg-white p-2 rounded-full shadow hover:bg-gray-100"
+          className="absolute top-2 right-2 bg-white dark:bg-gray-700 p-2 rounded-full shadow hover:bg-gray-100 dark:hover:bg-gray-600"
         >
-          <i className="fas fa-cart-plus text-gray-600"></i>
+          <i className="fas fa-cart-plus text-gray-600 dark:text-gray-300"></i>
         </button>
       </div>
       <div className="p-4">
-        <p className="text-sm text-gray-500 mb-1">{product.brand}</p>
-        <h3 className="font-semibold text-gray-800 mb-2 truncate">{product.name}</h3>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{product.brand}</p>
+        <h3 className="font-semibold text-gray-800 dark:text-white mb-2 truncate">{product.name}</h3>
         
         {product.rating && (
           <div className="flex items-center mb-2">
             <div className="flex text-amber-500">
               {renderStars(product.rating)}
             </div>
-            <span className="text-sm text-gray-500 ml-2">({product.reviews})</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400 ml-2">({product.reviews})</span>
           </div>
         )}
         
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-xl font-bold text-secondary">KES {product.price.toLocaleString()}</span>
+            <span className="text-xl font-bold text-secondary dark:text-white">KES {product.price.toLocaleString()}</span>
             {product.originalPrice && (
-              <span className="text-sm text-gray-500 line-through ml-2">
+              <span className="text-sm text-gray-500 dark:text-gray-400 line-through ml-2">
                 KES {product.originalPrice.toLocaleString()}
               </span>
             )}
@@ -58,7 +58,7 @@ export default function ProductCard({ product, onAddToCart }) {
         </div>
         
         {product.delivery && (
-          <p className="text-sm text-green-600 mt-2">
+          <p className="text-sm text-green-600 dark:text-green-400 mt-2">
             <i className="fas fa-shipping-fast mr-1"></i>
             {product.delivery}
           </p>
