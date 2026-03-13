@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import ThemeToggle from './ThemeToggle';
+import { useAuth } from './AuthProvider';
 
 export default function Header({ cart, onCartClick, navigationItems }) {
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
+  const { user, logout } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md transition-colors">
@@ -28,8 +30,31 @@ export default function Header({ cart, onCartClick, navigationItems }) {
               </button>
             </div>
             <div className="hidden md:flex items-center space-x-2">
-              <i className="fas fa-user-circle text-xl text-gray-600 dark:text-gray-300"></i>
-              <span className="text-sm dark:text-gray-300">Account</span>
+              {user ? (
+                <div className="relative group">
+                  <button className="flex items-center space-x-2 hover:text-primary">
+                    <i className="fas fa-user-circle text-xl text-gray-600 dark:text-gray-300"></i>
+                    <span className="text-sm dark:text-gray-300">{user.name}</span>
+                    <i className="fas fa-chevron-down text-xs dark:text-gray-300"></i>
+                  </button>
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg py-2 hidden group-hover:block">
+                    <Link href="/account" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <i className="fas fa-user mr-2"></i>My Account
+                    </Link>
+                    <Link href="/orders" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <i className="fas fa-box mr-2"></i>My Orders
+                    </Link>
+                    <button onClick={logout} className="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <i className="fas fa-sign-out-alt mr-2"></i>Logout
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <Link href="/login" className="flex items-center space-x-2 hover:text-primary">
+                  <i className="fas fa-user-circle text-xl text-gray-600 dark:text-gray-300"></i>
+                  <span className="text-sm dark:text-gray-300">Login</span>
+                </Link>
+              )}
             </div>
             <button className="md:hidden p-2">
               <i className="fas fa-bars text-xl dark:text-white"></i>
